@@ -2,4 +2,5 @@ rootProject.name = GROUP_ID
 
 include ':android-junit5'
 include ':sample'
+include ':sample-robolectric'
 include ':android-junit5-embedded-runtime'

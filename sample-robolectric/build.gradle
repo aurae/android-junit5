@@ -1,0 +1,55 @@
+buildscript {
+    ext.junit4Version = "4.12"
+    ext.robolectricVersion = "3.4.2"
+    ext.mockitoVersion = "1.10.19"
+
+    repositories {
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        google()
+        jcenter()
+    }
+
+    dependencies {
+        //noinspection GradleDynamicVersion
+        classpath "de.mannodermaus.gradle.plugins:android-junit5:1.0.10"
+        classpath "com.android.tools.build:gradle:$ANDROID_PLUGIN_2X_VERSION"
+    }
+}
+
+apply plugin: "com.android.application"
+apply plugin: "de.mannodermaus.android-junit5"
+apply plugin: "jacoco"
+
+android {
+    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // A Note to my forgetful self:
+    //
+    // When updating these values, make sure
+    // to always update the Travis CI .yml config
+    // & the plugin's AndroidJUnitPlatformSpec, too
+    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    compileSdkVersion 26
+    buildToolsVersion "26.0.2"
+
+    defaultConfig {
+        applicationId "de.mannodermaus.gradle.plugins.android_junit5.sample_robolectric"
+        minSdkVersion 15
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+    }
+
+    compileOptions {
+        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_1_7
+    }
+}
+
+dependencies {
+    testCompile junit5()
+    testCompile junit5Params()
+    testCompile "junit:junit:$junit4Version"
+    testCompile "org.robolectric:robolectric:$robolectricVersion"
+    testCompile "org.mockito:mockito-all:$mockitoVersion"
+    testCompile "de.mannodermaus.gradle.plugins:android-junit5-embedded-runtime:1.0.10"
+}
